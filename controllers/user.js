@@ -41,3 +41,28 @@ exports.signUp = (req,res,next)=>{
 
 
 
+exports.login = (req,res,next) =>{
+
+    const body = req.body;
+    console.log(req.body.email)
+
+    signup_table.findAll({where:{email:req.body.email}}).then(data=>{
+        
+        if(data[0]){
+            if(data[0].dataValues.password==req.body.password){
+            res.send('congrats you are now logged in')
+            }
+            else{
+                res.status(404).send('Incorrect password')
+            }
+            }
+
+        else{
+            
+            res.status(404).send('User Does Not Exist')
+        }
+        
+    })
+
+
+}

@@ -7,6 +7,7 @@ const signup_details = require('../models/userInfo.js');
 const signup_table = signup_details.Signup_details;
 
 
+const expense_table = require('../models/expenses.js');
 
 
 exports.signUp = (req,res,next)=>{
@@ -85,3 +86,52 @@ exports.login = (req,res,next) =>{
 
 
 }
+
+
+
+exports.postExpenses=(req,res,next)=>{
+
+    const incomingData=req.body;
+
+    expense_table.create({
+       amount: incomingData.amount,
+       category: incomingData.category,
+       description: incomingData.description
+    })
+    .then(serverData=>{
+        res.json({data:serverData.dataValues})
+    })
+
+}
+
+
+exports.getExpenses=(req,res,next)=>{
+
+    expense_table.findAll()
+    .then((result)=>{
+        const pureResult = result.map(key=>key.dataValues)
+       
+        res.json(pureResult);
+
+    })
+    .catch((error)=>{
+        console.log(error);
+    })
+
+
+}
+
+
+exports.deleteExpense=(req,res,next)=>{
+    const id =req.params.id;
+
+    expense_table.destroy({where:{id:id}})
+    .then((result)=>{
+          res.json({message:'User deleted'});
+      })
+      .catch(error=>{
+         console.log(error);
+      })
+
+
+};

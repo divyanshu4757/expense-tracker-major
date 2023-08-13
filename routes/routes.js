@@ -8,6 +8,12 @@ router.post('/signup', userController.signUp);
 
 router.post('/login', userController.login);
 
+router.post('/expenses',userController.postExpenses);
+router.get('/expenses',userController.getExpenses);
+router.delete('/delete/:id',userController.deleteExpense);
+
+
+
 
 
 module.exports = router;

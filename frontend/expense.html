@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+  <!-- Add Bootstrap CSS link -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .expense-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #c9b8b8;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    #expense-details {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+  }
+    .expense-description {
+      font-weight: bold;
+    }
+
+    .expense-category {
+      font-style: italic;
+    }
+
+    .expense-amount {
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <h1>Handle your finances better</h1>
+  
+  <form id="expenseForm">
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input type="number" class="form-control" id="amount" name="amount" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" class="form-control" id="description" name="description" required>
+    </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select class="form-control" id="category" name="category" required>
+        <option value="groceries">Groceries</option>
+        <option value="entertainment">Entertainment</option>
+        <option value="transportation">Transportation</option>
+        <option value="utilities">Utilities</option>
+        <option value="Food">Food</option>
+        <option value="Education">Education</option>
+        <option value="Gifts">gifts</option>
+
+
+        <option value="others">Others</option>
+
+      </select>
+    </div>
+    <button type="submit" class="btn btn-secondary">Add Expense</button>
+  </form>
+
+  <!-- UL tag for expense list -->
+  <ul id="expenseList" class="mt-3">
+    <!-- Sample expense with enhanced styling -->
+    <li class="expense-item">
+      <div id="expense-details">
+        <span class="expense-description">Sample Expense</span>
+        <span class="expense-category badge badge-secondary">Category</span>
+      </div>
+      <p id="expenseId"></p>
+      <span class="expense-amount badge badge-primary">$100</span>
+      <button class="btn btn-danger btn-sm ml-2 delete-expense">Delete</button>
+    </li>
+  </ul>
+</div>
+
+<!-- Add Bootstrap JS and jQuery scripts -->
+<script src="./expense.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

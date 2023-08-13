@@ -50,16 +50,16 @@ exports.login = (req,res,next) =>{
         
         if(data[0]){
             if(data[0].dataValues.password==req.body.password){
-            res.send('congrats you are now logged in')
+            res.send('User login sucessful')
             }
             else{
-                res.status(404).send('Incorrect password')
+                res.status(401).send('User not authorised')
             }
             }
 
         else{
             
-            res.status(404).send('User Does Not Exist')
+            res.status(404).send('User not found')
         }
         
     })

@@ -4,7 +4,8 @@ const description = document.getElementById('description');
 const category = document.getElementById('category');
 const sampleExpense = document.querySelector('.expense-item');
 const expenseList = document.getElementById('expenseList');
-
+const premium = document.getElementById('premium');
+const premiumSuccess = document.querySelector('#premium-success');
 
 
 
@@ -72,6 +73,15 @@ const token = localStorage.getItem('token');
     })
     .then(result=>{
         const finalData = result.data;
+        console.log(result);
+
+        if(finalData.isPremium == true){
+          premiumSuccess.textContent ="You are a premium member now"
+      premiumSuccess.style.fontSize ='15px'
+      premiumSuccess.style.fontWeight ='bold'
+      premiumSuccess.style.color ='green'
+
+        }
 
         finalData.forEach(data => {
             createExpense(data.amount,data.description,data.category,data.id)
@@ -103,3 +113,59 @@ const token = localStorage.getItem('token');
 
         
 })
+
+
+ 
+
+premium.addEventListener('click', async (e)=>{
+    
+  const token = localStorage.getItem('token');
+  
+  //console.log(token);
+
+
+ 
+  
+  const response =await axios.get(`http://localhost:5000/purchase/premiummembership`,{
+    headers:{"Authorization":token}
+  });
+  console.log(response);
+
+
+   
+
+ 
+  var option ={
+    "key":response.data.key_id,
+    "order_id":response.data.result.orderid,
+    "handler": async function (response) {
+         
+      await axios.post(`http://localhost:5000/purchase/updatetransactionstatus`,{
+        order_id:option.order_id,
+        payment_id:response.razorpay_payment_id,
+      },{headers:{"Authorization":token}})
+
+      alert("you are a premium member now")
+      premium.remove();
+      premiumSuccess.textContent ="You are a premium member now"
+      premiumSuccess.style.fontSize ='15px'
+      premiumSuccess.style.fontWeight ='bold'
+
+    },
+
+
+  };
+
+  const rzp1 = new Razorpay(option);
+
+  rzp1.open();
+  e.preventDefault();
+
+  rzp1.on('payment.failed', function (response) {
+    console.log(response)
+    alert("payment failed")
+  })
+})
+
+
+  

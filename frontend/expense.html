@@ -34,9 +34,20 @@
       font-weight: bold;
     }
 
+    #premium-container{
+           display: flex;
+           justify-content: flex-end;
+           margin-top: 25px;
+           margin-right: 10px;
+    }
+
   </style>
 </head>
 <body>
+   <div id="premium-container">
+  <p id="premium-success"></p>
+    <button class="btn btn-dark" id="premium">Go Preimum</button>
+</div> 
 
 <div class="container mt-5">
   <h1>Handle your finances better</h1>
@@ -84,7 +95,8 @@
   </ul>
 </div>
 
-<!-- Add Bootstrap JS and jQuery scripts -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
 <script src="./expense.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
 

@@ -30,8 +30,9 @@ function createExpense(amount, description, category , id){
 form.addEventListener('submit',(e)=>{
 
 e.preventDefault();
+const token = localStorage.getItem('token');
 
-console.log()
+
 
 
 
@@ -43,6 +44,8 @@ axios({
       description: description.value,
       category: category.value
     },
+    headers:{"Authorization":token}
+
   })
   .then(response=>{
 
@@ -62,7 +65,11 @@ axios({
 
 
 document.addEventListener('DOMContentLoaded',()=>{
-    axios("http://localhost:5000/expenses")
+const token = localStorage.getItem('token');
+
+    axios("http://localhost:5000/expenses",{
+      headers:{"Authorization":token}
+    })
     .then(result=>{
         const finalData = result.data;
 
@@ -75,6 +82,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 expenseList.addEventListener('click',(e)=>{
 
+const token = localStorage.getItem('token');
  
 
     if (e.target.classList.contains("delete-expense")) {
@@ -84,7 +92,8 @@ expenseList.addEventListener('click',(e)=>{
        
         //console.log(id);
         
-        axios.delete(`http://localhost:5000/delete/${id}`).then((response)=>{
+        axios.delete(`http://localhost:5000/delete/${id}`,{
+          headers:{"Authorization":token}}).then((response)=>{
             console.log(response.data.message);
             parent.remove();
         })

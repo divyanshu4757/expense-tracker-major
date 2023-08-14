@@ -20,18 +20,24 @@ loginForm.addEventListener('submit',(e)=>{
     },
   })
   .then(response=>{
+        
+    const token = response.data.id;
+    
+        
+    if(token){
+          p.textContent = "login successful";
+          localStorage.setItem('token', token);
 
-    if(response.data){
-        p.textContent = response.data;
-        p.style.color = 'green';
-        p.style.fontWeight="bold";
-        p.style.fontSize ="25px";
-
+        //  p.style.color = 'green';
+        //  p.style.fontWeight="bold";
+        //  p.style.fontSize ="25px";
+        window.location.href = "./expense.html"; 
     }
+    
   })
   .catch(error=>{
     
-    p.textContent= error.response.data;
+   // p.textContent= error.response.data;
     p.style.color = 'red';
     p.style.fontWeight="bold";
     p.style.fontSize ="25px"
